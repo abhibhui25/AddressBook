@@ -56,11 +56,12 @@ public class AddressBook {
 		Scanner sc = new Scanner(System.in);
 		Contacts c = new Contacts();
 		int x = 0;
-		while (x < 4) {
+		while (x != 5) {
 			System.out.println("1.Add a contact");
 			System.out.println("2.Edit a contact by name");
 			System.out.println("3.View contact details by name");
-			System.out.println("4.Exit");
+			System.out.println("4.Delete a contact by name");
+			System.out.println("5.Exit");
 			int k = sc.nextInt();
 
 			if (k == 1) {
@@ -78,9 +79,23 @@ public class AddressBook {
 					c.editContact();
 				} else
 					System.out.println("contact not found");
-			} else if (k == 3) {
+			} else if (k == 3)
 				c.showContact();
-			} else if (k == 4)
+			else if (k == 4) {
+				System.out.println("Enter First Name");
+				String f = sc.next();
+				System.out.println("Enter Last Name");
+				String l = sc.next();
+				String first = c.fname;
+				String last = c.lname;
+				if (first.equals(f) && last.equals(l)) {
+
+					c = null;
+				} else
+					System.out.println("contact not found");
+			}
+
+			else if (k == 5)
 				System.exit(0);
 		}
 	}
