@@ -1,134 +1,169 @@
 import java.util.*;
 
-class Contacts {
-	String fname, lname, address, city, state, zip, pno, email;
-	Scanner sc = new Scanner(System.in);
+class AddressBook {
+	public static void main(String args[]) {
+		System.out.println("Welcome to Address Book program");
+		Scanner sc = new Scanner(System.in);
+		ArrayList<AddressB> adbook = new ArrayList<AddressB>();
+		int r = 0;
+		while (r != 3) {
+			System.out.println("1.CREATE ADDRESSBOOK");
+			System.out.println("2.ACCESS ADDRESSBOOK");
+			System.out.println("3.EXIT APPLICATION");
+			r = sc.nextInt();
+			AddressB bk;
+			switch (r) {
+			case 1: {
+				System.out.println("Enter the address book name to be created");
+				String n = sc.next();
+				bk = new AddressB();
+				bk.bName = n;
+				adbook.add(bk);
+				break;
+			}
+			case 2: {
+				int key = 0;
+				System.out.println("Enter the address book name to be accessed");
+				String b = sc.next();
+				for (int j = 0; j < adbook.size(); j++) {
+					if (adbook.get(j).bName.equalsIgnoreCase(b)) {
+						key = 1;
+						int x = 0;
+						while (x != 5) {
+							System.out.println("1.Add contact");
+							System.out.println("2.Edit contact by name");
+							System.out.println("3.View details by name");
+							System.out.println("4.Delete contact");
+							System.out.println("5.Exit");
+							x = sc.nextInt();
+							if (x == 1) {
+								Contact a = new Contact();
+								a.addContact();
+								adbook.get(j).ar.add(a);
+							} else if (x == 2) {
+								System.out.println("Enter First Name");
+								String f = sc.next();
+								System.out.println("Enter Last Name");
+								String l = sc.next();
+								int k = 0, i = 0;
+								for (i = 0; i < adbook.get(j).ar.size(); i++) {
+									if (adbook.get(j).ar.get(i).fname.equalsIgnoreCase(f)
+											&& adbook.get(j).ar.get(i).lname.equalsIgnoreCase(l)) {
+										k = 1;
+										break;
+									}
+								}
+								if (k == 0) {
+									System.out.println("******No Contact found******");
+								} else {
+									adbook.get(j).ar.get(i).editContact();
+								}
+							} else if (x == 3) {
+								System.out.println("Enter First Name");
+								String f = sc.next();
+								System.out.println("Enter Last Name");
+								String l = sc.next();
+								int k = 0, i = 0;
+								for (i = 0; i < adbook.get(i).ar.size(); i++) {
+									if (adbook.get(j).ar.get(i).fname.equalsIgnoreCase(f)
+											&& adbook.get(j).ar.get(i).lname.equalsIgnoreCase(l)) {
+										k = 1;
+										break;
+									}
+								}
+								if (k == 0) {
+									System.out.println("******No Contact found******");
+								} else {
+									adbook.get(j).ar.get(i).viewContact();
+								}
+							} else if (x == 4) {
+								System.out.println("Enter First Name");
+								String f = sc.next();
+								System.out.println("Enter Last Name");
+								String l = sc.next();
+								int k = 0;
+								for (int i = 0; i < adbook.get(j).ar.size(); i++) {
+									if (adbook.get(j).ar.get(i).fname.equalsIgnoreCase(f)
+											&& adbook.get(j).ar.get(i).lname.equalsIgnoreCase(l)) {
+										k = 1;
+										adbook.get(j).ar.remove(i);
+										System.out.println("Contact Deleted!");
+										break;
+									}
+								}
+								if (k == 0) {
+									System.out.println("No Contact found!");
 
-	public void addContact() {
-
-		System.out.println("Enter the first name");
-		this.fname = sc.next();
-		System.out.println("Enter the last name");
-		this.lname = sc.next();
-		System.out.println("Enter the address");
-		this.address = sc.next();
-		System.out.println("Enter the city");
-		this.city = sc.next();
-		System.out.println("Enter the state");
-		this.state = sc.next();
-		System.out.println("Enter the zip code");
-		this.zip = sc.next();
-		System.out.println("Enter the phone number");
-		this.pno = sc.next();
-		System.out.println("Enter the email");
-		this.email = sc.next();
-	}
-
-	public void showContact() {
-		System.out.println("Name: " + fname + " " + lname);
-		System.out.println("Address: " + address);
-		System.out.println("City: " + city);
-		System.out.println("State: " + state);
-		System.out.println("Zip: " + zip);
-		System.out.println("Phone number: " + pno);
-		System.out.println("Email: " + email);
-	}
-
-	public void editContact() {
-		System.out.println("Enter the address");
-		this.address = sc.next();
-		System.out.println("Enter the city");
-		this.city = sc.next();
-		System.out.println("Enter the state");
-		this.state = sc.next();
-		System.out.println("Enter the zip code");
-		this.zip = sc.next();
-		System.out.println("Enter the phone number");
-		this.pno = sc.next();
-		System.out.println("Enter the email");
-		this.email = sc.next();
+								}
+							} else if (x == 5) {
+								break;
+							}
+						}
+						break;
+					}
+				}
+				if (key == 0) {
+					System.out.println("Address Book does not exist!");
+				}
+			}
+			default:
+				break;
+			}
+		}
 	}
 }
 
-public class AddressBook {
-	public static void main(String[] args) {
-		System.out.println("Welcome to Address Book program ");
-		ArrayList<Contacts> cont = new ArrayList<Contacts>();
-		Scanner sc = new Scanner(System.in);
-		int k = 0;
-		while (k != 5) {
-			System.out.println("1.Add a contact");
-			System.out.println("2.Edit a contact by name");
-			System.out.println("3.View contact details by name");
-			System.out.println("4.Delete a contact by name");
-			System.out.println("5.Exit");
-			k = sc.nextInt();
+class AddressB {
+	String bName;
+	ArrayList<Contact> ar = new ArrayList<Contact>();
 
-			if (k == 1) {
-				Contacts c = new Contacts();
-				c.addContact();
-				cont.add(c);
-				System.out.println("The contact was added successfully!");
-			} else if (k == 2) {
+}
 
-				System.out.println("Enter the first name");
-				String first = sc.next();
-				System.out.println("Enter the last name");
-				String last = sc.next();
-				int p = 0, i = 0;
-				for (i = 0; i < cont.size(); i++) {
-					if (cont.get(i).fname.equalsIgnoreCase(first) && cont.get(i).lname.equalsIgnoreCase(last)) {
-						p = 1;
-						break;
-					}
-				}
-				if (p == 0) {
-					System.out.println("Contact not found");
-				} else {
-					cont.get(i).editContact();
-					System.out.println("The contact was modified successfully!");
-				}
+class Contact {
+	Scanner sc = new Scanner(System.in);
+	String fname, lname, address, String, city, state, zip, pno, email;
 
-			} else if (k == 3) {
-				System.out.println("Enter the first name");
-				String first = sc.next();
-				System.out.println("Enter the last name");
-				String last = sc.next();
-				int p = 0, i = 0;
-				for (i = 0; i < cont.size(); i++) {
-					if (cont.get(i).fname.equalsIgnoreCase(first) && cont.get(i).lname.equalsIgnoreCase(last)) {
-						p = 1;
-						break;
-					}
-				}
-				if (p == 0) {
-					System.out.println("Contact not found");
-				} else {
-					cont.get(i).showContact();
-				}
-			} else if (k == 4) {
-				System.out.println("Enter the first name");
-				String first = sc.next();
-				System.out.println("Enter the last name");
-				String last = sc.next();
-				int p = 0, i = 0;
-				for (i = 0; i < cont.size(); i++) {
-					if (cont.get(i).fname.equalsIgnoreCase(first) && cont.get(i).lname.equalsIgnoreCase(last)) {
-						p = 1;
-						break;
-					}
-				}
-				if (p == 0)
-					System.out.println("Contact not found");
-				else
-					cont.remove(i);
-				System.out.println("The contact was deleted successfully!");
-			}
+	public void addContact() {
 
-			else if (k == 5) {
-				System.exit(0);
-				System.out.println("Thanks for using the Address Book!");
-			}
-		}
+		System.out.println("Enter First Name");
+		this.fname = sc.next();
+		System.out.println("Enter Last Name");
+		this.lname = sc.next();
+		System.out.println("Enter Address");
+		this.address = sc.next();
+		System.out.println("Enter city");
+		this.city = sc.next();
+		System.out.println("Enter state");
+		this.state = sc.next();
+		System.out.println("Enter zip code");
+		this.zip = sc.next();
+		System.out.println("Enter phone number");
+		this.pno = sc.next();
+		System.out.println("Enter email");
+		this.email = sc.next();
+	}
+
+	public void editContact() {
+		System.out.println("Enter Address");
+		this.address = sc.next();
+		System.out.println("Enter city");
+		this.city = sc.next();
+		System.out.println("Enter state");
+		this.state = sc.next();
+		System.out.println("Enter zip code");
+		this.zip = sc.next();
+		System.out.println("Enter phone number");
+		this.pno = sc.next();
+		System.out.println("Enter email");
+		this.email = sc.next();
+	}
+
+	public void viewContact() {
+		System.out.println("ADDRESS = " + this.address);
+		System.out.println("CITY = " + this.city);
+		System.out.println("STATE = " + this.state);
+		System.out.println("ZIP = " + this.zip);
+		System.out.println("PHONE NUMBER =" + this.pno);
+		System.out.println("EMAIL =" + this.email);
 	}
 }
