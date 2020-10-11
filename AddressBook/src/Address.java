@@ -207,7 +207,7 @@ public class Address {
 			for (int k = 0; k < book.size(); k++) {
 				System.out.println(list.get(k).fName + " " + list.get(k).lName);
 			}
-			
+			System.out.println("The number of persons living in " + city + " city are " + list.size());
 		}
 	}
 
@@ -225,7 +225,7 @@ public class Address {
 			for (int k = 0; k < book.size(); k++) {
 				System.out.println(list.get(k).fName + " " + list.get(k).lName);
 			}
-			
+			System.out.println("The number of persons living in " + state + " state are " + list.size());
 		}
 	}
 	public static void main(String args[]) {
