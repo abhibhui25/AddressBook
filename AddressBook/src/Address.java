@@ -72,7 +72,13 @@ public class Address {
 	static boolean duplicateCheck(AddressBook ab, Contact contact) {
 		return (ab.array.stream().anyMatch(c -> c.equals(contact)));
 	}
+	static List<Contact> searchNameByCity(AddressBook adbook, String cityString) {
+		return adbook.array.stream().filter(c -> c.city.equals(cityString)).collect(Collectors.toList());
+	}
 
+	static List<Contact> searchNameByState(AddressBook adbook, String stateString) {
+		return adbook.array.stream().filter(c -> c.state.equals(stateString)).collect(Collectors.toList());
+	}
 	static ArrayList<AddressBook> createAddressBook(ArrayList<AddressBook> abook) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter name of address book you want to create:");
@@ -187,16 +193,52 @@ public class Address {
 		}
 		return book;
 	}
+	static void accessByCity(ArrayList<AddressBook> book) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the city: ");
+		String city = sc.next();
+		List<Contact> list = new ArrayList();
+		for (int k = 0; k < book.size(); k++) {
+			list.addAll(searchNameByCity(book.get(k), city));
+		}
+		if (list.size() == 0) {
+			System.out.println("No contact found");
+		} else {
+			for (int k = 0; k < book.size(); k++) {
+				System.out.println(list.get(k).fName + " " + list.get(k).lName);
+			}
+			
+		}
+	}
 
+	static void accessByState(ArrayList<AddressBook> book) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter the State ");
+		String state = scanner.next();
+		List<Contact> list = new ArrayList();
+		for (int k = 0; k < book.size(); k++) {
+			list.addAll(searchNameByState(book.get(k), state));
+		}
+		if (list.size() == 0) {
+			System.out.println("No Contacts Found");
+		} else {
+			for (int k = 0; k < book.size(); k++) {
+				System.out.println(list.get(k).fName + " " + list.get(k).lName);
+			}
+			
+		}
+	}
 	public static void main(String args[]) {
 		System.out.println("Welcome to the address book program");
 		Scanner scanner = new Scanner(System.in);
 		ArrayList<AddressBook> adbook = new ArrayList<AddressBook>();
 		int r = 0;
-		while (r != 3) {
+		while (r != 5) {
 			System.out.println("1.Create AddressBook");
 			System.out.println("2.Access AddressBook");
 			System.out.println("3.Exit");
+			System.out.println("4.Check contacts by city");
+			System.out.println("5.Check contacts by state");
 			r = scanner.nextInt();
 			AddressBook book;
 			switch (r) {
@@ -208,7 +250,14 @@ public class Address {
 				adbook = accessAddressBook(adbook);
 				break;
 			}
-
+			case 3: {
+				accessByCity(adbook);
+				break;
+			}
+			case 4: {
+				accessByState(adbook);
+				break;
+			}
 			}
 		}
 	}
