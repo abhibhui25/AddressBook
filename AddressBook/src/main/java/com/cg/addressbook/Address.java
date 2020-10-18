@@ -89,6 +89,23 @@ public class Address {
         adbook.array.stream().sorted((c1, c2) -> c1.fName.concat(c1.lName).compareTo(c2.fName.concat(c2.lName))).forEach(System.out::println);
 
     }
+    static void sortByCity(AddressBook adbook) {
+        adbook.array.stream().sorted((c1, c2) -> c1.city.compareTo(c2.city))
+                .forEach(c -> System.out.println(c.fName + ", " + c.lName + "belongs to city " + c.city));
+
+    }
+
+    static void sortByState(AddressBook adbook) {
+        adbook.array.stream().sorted((c1, c2) -> c1.state.compareTo(c2.state))
+                .forEach(c -> System.out.println(c.fName + ", " + c.lName + " belongs to state " + c.state));
+
+    }
+
+    static void sortByZip(AddressBook adbook) {
+        adbook.array.stream().sorted((c1, c2) -> c1.zip.compareTo(c2.zip))
+                .forEach(c -> System.out.println(c.fName + ", " + c.lName + " belongs to zip " + c.zip));
+
+    }
     static ArrayList<AddressBook> createAddressBook(ArrayList<AddressBook> abook) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name of address book you want to create:");
@@ -121,13 +138,16 @@ public class Address {
             if (book.get(j).bName.equalsIgnoreCase(b)) {
                 temp = 1;
                 int temp1 = 0;
-                while (temp1 != 6) {
+                while (temp1 != 9) {
                     System.out.println("1.Add contact");
                     System.out.println("2.Edit contact by name");
                     System.out.println("3.View contact by name");
                     System.out.println("4.Delete contact");
                     System.out.println("5.Sort based on name");
-                    System.out.println("6.Exit the present book");
+                    System.out.println("6.Sort based on city");
+                    System.out.println("7.Sort based on state");
+                    System.out.println("8.Sort based on zip");
+                    System.out.println("9.Exit the present book");
                     temp1 = scanner.nextInt();
                     Contact a;
                     if (temp1 == 1) {
@@ -197,7 +217,16 @@ public class Address {
                     else if(temp1==5){
                         sortByName(book.get(j));
                     }
-                    else if (temp1 == 6) {
+                    else if(temp1==6){
+                        sortByCity(book.get(j));
+                    }
+                    else if(temp1==7){
+                        sortByState(book.get(j));
+                    }
+                    else if(temp1==8){
+                        sortByZip(book.get(j));
+                    }
+                    else if (temp1 == 9) {
                         break;
                     }
                 }
